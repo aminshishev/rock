@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    <button id='button'>Play</button>
+    <p class='p'></p>
+    <p class='p2'></p>
+    <p class='p3'></p>
+    <script>
+        let par = document.querySelector('.p');
+        let par2 = document.querySelector('.p2');
+        let par3 = document.querySelector('.p3');
+        function computerPlay() {
+            let arr = ['rock', 'paper', 'scissors'];
+            return arr[Math.floor(Math.random() * 3)];
+        }
+        function playRound(playerselection, computerselection) {
+            let result = '';
+            if (playerselection == computerselection) {
+                par.textContent='It\'s draw!';
+                return 'It\'s draw!';
+            } else if (playerselection == 'rock' && computerselection == 'paper') {
+                par.textContent='You lose! Paper beats Rock';
+                result = 'computerwin';
+            } else if (playerselection == 'rock' && computerselection == 'scissors') {
+                 par.textContent='You win! Rock beats Scissors';
+                 result = 'playerwin';
+            } else if (playerselection == 'paper' && computerselection == 'rock') {
+                par.textContent='You win! Paper beats rock';
+                result = 'playerwin';
+            } else if (playerselection == 'paper' && computerselection == 'scissors') {
+                par.textContent='You lose! Scissors beats paper';
+                result = 'computerwin';
+            } else if (playerselection == 'scissors' && computerselection == 'rock') {
+                par.textContent='You lose! Rock beats Scissors';
+                result = 'computerwin';
+                
+            } else if (playerselection == 'scissors' && computerselection == 'paper') {
+                par.textContent='You win! Scissors beats paper';
+                result = 'playerwin';
+            }
+            return result;
+        }
+        function startPlay() {
+            let playerselection = prompt('Choose your destiny: rock, paper, scissors').toLowerCase();
+            let computerselection = computerPlay();
+            if (playerselection != 'rock' || 'paper' || 'scissors') {
+                par3.textContent='Please choose one of suggested!'
+            }
+            let winner = playRound(playerselection, computerselection);
+            if (winner == 'playerwin') {
+                playercnt += 1;
+            } else if (winner == 'computerwin')  {
+                computercnt += 1;
+            } else if (winner = 'It\'s draw!') {
+                par2.textContent= 'player ' + playercnt +' : ' + computercnt + ' computer';
+                return;
+
+            }
+            console.log('player ' + playercnt +' : ' + computercnt + ' computer');
+            par2.textContent = 'player ' + playercnt +' : ' + computercnt + ' computer';
+            if (playercnt == 5 || computercnt == 5) {
+                par3.textContent='Game over! The account is reset';
+                playercnt = 0;
+                computercnt = 0;
+            }
+        }
+        
+        let playercnt = 0;
+        let computercnt = 0;
+        let button = document.getElementById('button');
+        button.addEventListener('click', startPlay);
+    </script>
+</body>
+</html>
